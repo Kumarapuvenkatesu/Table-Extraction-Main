@@ -1,0 +1,15 @@
+p.footer-txt {
+    text-align: center;
+    position: fixed;
+    bottom: -15px;
+    left: 0px;
+    right: 0px;
+    background-color: rgb(247 243 243 / 49%) ;
+    font-weight: 400;
+    padding: 15px;
+     /* color: #050505; */
+  }
+
+  @media only screen and (max-width:767px){
+    .footer-txt-mobile {display: block;}
+  }

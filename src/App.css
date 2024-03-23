@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;500;600&family=Figtree:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap');
+body {
+  background-color: #fafafa;
+  font-family: 'Chivo', sans-serif;
+}
+.container {
+  width: 1140px;
+  margin: 0 auto;
+}
+h2 {
+  font-size: 2.3em;
+  font-weight: 400;
+}
+.header-extracttable {
+  background: linear-gradient(135deg, #A8C0ED 0%, #F4C4EC 100%);
+}
+.header-extracttable img {
+  height: 3.5rem;
+}
+.fileupload-row {
+  padding: 90px 0;
+  text-align: center;
+}
+
+.header-section {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.contact button {
+  background-color: #ff5000;
+  border-color: #ff5000;
+  border: none;
+  font-size: 16px;
+  padding: 0.375rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 1.25rem;
+  color: #ffffff;
+  font-family: 'Chivo', sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+.dropzone h5 {
+  font-size: 1.33em;
+  line-height: 1.33em;
+  font-weight: 300;
+  margin: 0;
+  font-family: 'Chivo', sans-serif;
+}
+.dropzone p {
+  font-size: 1em;
+  font-family: 'Chivo', sans-serif;
+  margin: 0;
+}
+/* .dropzone button {
+  display: none;
+} */
+.image-preview img {
+  height: 100px;
+  width: auto;
+}
+.image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-content: center;
+  justify-content: center;
+  margin-top: 45px;
+}
