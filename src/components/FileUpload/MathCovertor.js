@@ -1,31 +1,25 @@
-
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import * as FileSaver from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import fileimage from "../../assets/file-type.png";
-import Header from "../Header/Header";
-import Cookies from "js-cookie";
-import { Stack, Box, Button, Typography, TextField, IconButton, AppBar, Toolbar } from "@mui/material";
+import { Stack, Box, Button, Typography, TextField, IconButton } from "@mui/material";
 import { useThemeContext } from "../ThemeContext/ThemeContext";
 import { Close } from "@mui/icons-material";
 import SideHeader from "../Header/SideHeader";
 import TableExtract from "../../assets/images/img-fromate.png";
 import TableConverting from "../../assets/images/img-table-convert.png";
-import {DataContext} from "../ThemeContext/ThemeContext";
+import { DataContext } from "../ThemeContext/ThemeContext";
 
 export default function MathCovertor() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreviews, setFilePreviews] = useState([]);
+    const [open, setOpen] = React.useState(false);
+    const [downloadStatus, setDownloadStatus] = useState(false);
+    const [response, setResponse] = useState([]);
+    const [imageSrc, setImageSrc] = useState(null);
     const data = useThemeContext()
-    const {selectedFileEl, setSelectedFileEl}=useContext(DataContext)
-    // useEffect(() => {
-    //   const jwtToken = Cookies.get("token");
-    //   if (jwtToken === undefined) {
-    //     window.location.href = "/login"
-    //   }
-    // }, [undefined])
+    const { selectedFileEl, setSelectedFileEl } = useContext(DataContext)
 
     const onFileChange = (e) => {
         const files = e.target.files;
@@ -55,10 +49,6 @@ export default function MathCovertor() {
         }
     };
 
-    const [open, setOpen] = React.useState(false);
-    const [downloadStatus, setDownloadStatus] = useState(false);
-    const [response, setResponse] = useState([]);
-    const [imageSrc, setImageSrc] = useState(null);
     const onSubmit = async (e) => {
         e.preventDefault();
         setOpen(true)
@@ -75,14 +65,14 @@ export default function MathCovertor() {
                         //     method: "POST",
                         //     body: formData,
                         // });
-                        const response=await axios.post('http://10.93.24.151:3003/formExt', formData)
-                        console.log("data",response)
-                        setImageSrc(response.data) 
+                        const response = await axios.post('http://10.93.24.151:3003/formExt', formData)
+                        console.log("data", response)
+                        setImageSrc(response.data)
                         setResponse(response)
                         if (response.status === 200) {
-                            setDownloadStatus(!downloadStatus)   
+                            setDownloadStatus(!downloadStatus)
                         }
-                       
+
                     } catch (error) {
                         toast.error("An error occurred. Please try again.");
                         setOpen(false)
@@ -117,14 +107,6 @@ export default function MathCovertor() {
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)
                         }
-                        // const blob = new Blob([response.data], { type: 'application/zip' });
-                        // const url = window.URL.createObjectURL(blob);
-                        // const link = document.createElement('a');
-                        // link.href = url;
-                        // link.setAttribute('download', 'my_powerpoint_file.zip');
-                        // link.click();
-                        // toast.success("Files uploaded and data extracted successfully");
-                        // setSelectedFile(null)
                     } catch (error) {
                         toast.error("Error during download:", error);
                         setOpen(false)
@@ -221,17 +203,16 @@ export default function MathCovertor() {
                 </Stack>
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" >
-                         {
+                        {
                             imageSrc &&
                             <Stack direction={"row"} my={4} gap={2} >
-                            <Stack sx={{background:"#d1d1d1",px:"30px",py:"22px"}} justifyContent={"center"} alignItems={"center"}>
-                            <img src={filePreviews} alt={'Preview'} width={"300px"} />
-                            </Stack>
-                            <Stack sx={{background:"#d1d1d1"}}>
-                            {/* <img src={imageSrc} alt={'Preview'} width={"300px"} /> */}
-                            <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography>
-                            {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
-                            </Stack>
+                                <Stack sx={{ background: "#d1d1d1", px: "30px", py: "22px" }} justifyContent={"center"} alignItems={"center"}>
+                                    <img src={filePreviews} alt={'Preview'} width={"300px"} />
+                                </Stack>
+                                <Stack sx={{ background: "#d1d1d1" }}>
+                                    <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography>
+                                    {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
+                                </Stack>
                             </Stack>
                         }
                         <Typography variant="h6" sx={{ color: "#68e043" }}>Extracting tables processed successfully</Typography>
@@ -284,8 +265,8 @@ export default function MathCovertor() {
                             </Stack>
                         ) : (
                             <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
-                                <img src={TableConverting} style={{"margin":"7rem"}}/>
-                              <Typography paragraph> MathMl Converting in Progress</Typography>
+                                <img src={TableConverting} style={{ "margin": "7rem" }} />
+                                <Typography paragraph> MathMl Converting in Progress</Typography>
                             </Stack>
                         )}
                     </>
@@ -294,17 +275,3 @@ export default function MathCovertor() {
         </Box>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

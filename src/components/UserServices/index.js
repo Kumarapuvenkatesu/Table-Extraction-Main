@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const Domain="http://172.17.151.141:3002"
+const Domain="http://10.93.24.151:3002"
 
 export const loginUrl=async(email,password)=>{
     const ApiUrl=Domain+"/login";
@@ -9,7 +8,6 @@ export const loginUrl=async(email,password)=>{
         const response=await axios.post(ApiUrl,{email,password})
         console.log(response)
     } catch (error) {
-        console.log(error)
-        
+        console.log(error) 
     }
 }

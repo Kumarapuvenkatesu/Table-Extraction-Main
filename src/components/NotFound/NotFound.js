@@ -1,12 +1,13 @@
 import React from "react";
 import { Box, Stack,Typography } from "@mui/material";
-import SideHeader from "../Header/SideHeader";
+import Header from "../Header/Header";
 
 export default function NotFound(){
     return(
-        <Box display={"flex"} justifyContent={"center"} alignItems={"flex-end"}>
-     <SideHeader/>
-     <Box component={"main"}  >
+        <Box height={"100vh"}>
+         <Header/> 
+     {/* <SideHeader/> */}
+     <Box component={"div"}  >
            <Stack className="fileupload-row text-center">
             <Typography variant="h3" >NotFound</Typography>
             <Typography paragraphed>There is no content</Typography>

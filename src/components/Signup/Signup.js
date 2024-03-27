@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Button, Typography,TextField}from '@mui/material';
-import {Link} from 'react-router-dom';
+import { Button, Typography, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -8,32 +8,27 @@ import Header from '../Header/Header';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
-
-
-
 export default function SignUp() {
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('')
 
-  const [name,setName]=React.useState('');
-  const [email,setEmail]=React.useState('');
-  const [password,setPassword]=React.useState('');
-  const [confirmPassword,setConfirmPassword]=React.useState('')
-
-  const handleSubmit =async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if(password===confirmPassword){
+    if (password === confirmPassword) {
       // const response = await axios.post("http://localhost:3001/signup", { email, password, name })
       const response = await axios.post("http://172.17.151.141:3002/signup", { email, password, name })
       console.log(response);
       toast.success(response.data.status)
     }
-   
   };
 
   return (
     <>
-       <Header/>
+      <Header />
       <Container component="main" maxWidth="xs">
-       <ToastContainer/> 
+        <ToastContainer />
         <Box
           sx={{
             marginTop: 18,
@@ -52,48 +47,42 @@ export default function SignUp() {
                   autoComplete="given-name"
                   name="firstName"
                   fullWidth
-                 value={name}
+                  value={name}
                   label="Username"
-                 
-                  onChange={(e)=>setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Grid>
-             
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   label="Email"
-                
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-               
                   label="Password"
                   type="password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-               
                   label="confirmPassword"
                   type="password"
                   value={confirmPassword}
-                  onChange={(e)=>setConfirmPassword(e.target.value)}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </Grid>
-             
             </Grid>
             <Link variant="span" to={"/forget"}>
-                Forgot password?
-              </Link>
+              Forgot password?
+            </Link>
             <Button
               type="submit"
               fullWidth
@@ -104,14 +93,12 @@ export default function SignUp() {
               Sign Up
             </Button>
             <Grid container justifyContent="center">
-                <Link to="/login" variant="body2">
-                  Already have an account? Login
-                </Link>
-            
+              <Link to="/login" variant="body2">
+                Already have an account? Login
+              </Link>
             </Grid>
           </Box>
         </Box>
-        
       </Container>
     </>
   );
