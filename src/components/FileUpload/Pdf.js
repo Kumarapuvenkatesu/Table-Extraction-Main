@@ -58,6 +58,17 @@ export default function AllFiles() {
     e.preventDefault();
  setOpen(true);
 //  setDownloadStatus(!downloadStatus)
+const formData = new FormData();
+formData.append("image", selectedFile);
+// const response = await fetch("http://10.93.24.151:3003/formExt", {
+// method: "POST",
+// body: formData,
+// });
+console.log("data",response)
+setResponse(response)
+if (response.status === 200) {
+    setDownloadStatus(!downloadStatus)   
+    }
  
 
   };

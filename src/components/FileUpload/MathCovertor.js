@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import * as FileSaver from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
@@ -13,11 +13,13 @@ import { Close } from "@mui/icons-material";
 import SideHeader from "../Header/SideHeader";
 import TableExtract from "../../assets/images/img-fromate.png";
 import TableConverting from "../../assets/images/img-table-convert.png";
+import {DataContext} from "../ThemeContext/ThemeContext";
 
 export default function MathCovertor() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreviews, setFilePreviews] = useState([]);
     const data = useThemeContext()
+    const {selectedFileEl, setSelectedFileEl}=useContext(DataContext)
     // useEffect(() => {
     //   const jwtToken = Cookies.get("token");
     //   if (jwtToken === undefined) {
@@ -61,6 +63,7 @@ export default function MathCovertor() {
         e.preventDefault();
         setOpen(true)
         if (selectedFile) {
+            setSelectedFileEl(selectedFile)
             switch (selectedFile.type) {
                 case "image/jpg":
                 case "image/png":
@@ -68,25 +71,18 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await fetch("http://10.93.24.151:3003/formExt", {
-                            method: "POST",
-                            body: formData,
-                        });
+                        // const response = await fetch("http://10.93.24.151:3003/formExt", {
+                        //     method: "POST",
+                        //     body: formData,
+                        // });
+                        const response=await axios.post('http://10.93.24.151:3003/formExt', formData)
                         console.log("data",response)
+                        setImageSrc(response.data) 
                         setResponse(response)
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)   
                         }
-                        if (!response.ok) {
-                            throw new Error("Server error");
-                        }else{
-                            console.log("responedd",response.url)
-                            const reader = new FileReader();
-                            reader.onload = (event) => {
-                                setImageSrc(event.target.result);
-                            };
-                            // reader.readAsDataURL( response);
-                        }
+                       
                     } catch (error) {
                         toast.error("An error occurred. Please try again.");
                         setOpen(false)
@@ -189,8 +185,9 @@ export default function MathCovertor() {
     }
 
     const downloadData = async () => {
-        if (response.type === "cors") {
-            const blob = await response.blob();
+        if (response.type !== null) {
+            //const blob = await response.blob();
+            const blob = new Blob([response.data]);
             FileSaver.saveAs(blob, "my_download_file.txt");
             setDownloadStatus(!downloadStatus)
             setOpen(false)
@@ -224,14 +221,19 @@ export default function MathCovertor() {
                 </Stack>
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" >
-                        <Stack direction={"row"} my={4} gap={2}>
-                        <Stack sx={{background:"#d1d1d1",px:"30px",py:"22px"}}>
-                        <img src={filePreviews} alt={'Preview'} width={"300px"} />
-                        </Stack>
-                        <Stack sx={{background:"#d1d1d1"}}>
-                        <img src={imageSrc} alt={'Preview'} width={"300px"} />
-                        </Stack>
-                        </Stack>
+                         {
+                            imageSrc &&
+                            <Stack direction={"row"} my={4} gap={2} >
+                            <Stack sx={{background:"#d1d1d1",px:"30px",py:"22px"}} justifyContent={"center"} alignItems={"center"}>
+                            <img src={filePreviews} alt={'Preview'} width={"300px"} />
+                            </Stack>
+                            <Stack sx={{background:"#d1d1d1"}}>
+                            {/* <img src={imageSrc} alt={'Preview'} width={"300px"} /> */}
+                            <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography>
+                            {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
+                            </Stack>
+                            </Stack>
+                        }
                         <Typography variant="h6" sx={{ color: "#68e043" }}>Extracting tables processed successfully</Typography>
                         <Typography paragraph>Please download the CSV File</Typography>
                         <Button variant="contained" sx={{ width: "300px" }} className="download-button" onClick={downloadData}>Download</Button>

@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Stack, Typography,TableContainer,Table,TableHead,TableCell,TableRow } from "@mui/material";
+import React,{useContext} from "react";
+import { Box, Stack, Typography,TableContainer,Table,TableHead,TableCell,TableRow,TableBody } from "@mui/material";
 import SideHeader from "../Header/SideHeader";
 import Assest from "../../assets/images/asset-dcouments.png";
 import  PdfToWordImage from "../../assets/images/pdf-to-word-imgs.png";
@@ -10,10 +10,13 @@ import Alt from "../../assets/images/alt-tag.png";
 import HTML from "../../assets/images/html.png";
 import WebPage from "../../assets/images/web-page.png";
 import CSS from "../../assets/images/css.png";
- import dash from "../../assets/04.png"
+ import dash from "../../assets/04.png";
+ import {DataContext} from "../ThemeContext/ThemeContext";
 
 
 export default function DashBoard(){
+  const data1=useContext(DataContext);
+  
     const data = [
         { number: 90, title: 'My Asset Documents', icon: <img src={Assest} alt="assest"/> },
         { number: 60, title: 'Image to Table Extracted', icon: <img src={ImageTable} alt="Table"/> },
@@ -86,6 +89,13 @@ export default function DashBoard(){
                                     <TableCell>Date and Time</TableCell>
                                 </TableRow>
                             </TableHead>
+                            <TableBody>
+                             <TableRow>
+                               <TableCell>{data1.selectedFileEl.name}</TableCell>
+                               <TableCell>{data1.selectedFileEl.type}</TableCell>
+                               <TableCell>{new Date().toDateString()},{new Date().toLocaleTimeString()}</TableCell>
+                             </TableRow>
+                         </TableBody>
                         </Table>
                     </TableContainer>
                 </Stack>

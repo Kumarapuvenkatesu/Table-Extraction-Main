@@ -326,7 +326,7 @@ export default function MathCovertor() {
     const [open, setOpen] = React.useState(false);
     const [downloadStatus, setDownloadStatus] = useState(false);
     const [response, setResponse] = useState([]);
-
+    const[imageSrc,setImageSrc]=useState();
     const onSubmit = async (e) => {
         e.preventDefault();
         setOpen(true)
@@ -339,18 +339,18 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await fetch("http://172.17.151.141:3002/tableExtraction", {
-                            method: "POST",
-                            body: formData,
-                        });
+                        // const response = await fetch("http://172.17.151.141:3002/tableExtraction", {
+                        //     method: "POST",
+                        //     body: formData,
+                        // });
+                        const response= await axios.post('http://10.93.24.151:3002/tableExtraction', formData)
                         // console.log("response", response)
+                        setImageSrc(response.data)
                         setResponse(response)
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)
                         }
-                        if (!response.ok) {
-                            throw new Error("Server error");
-                        }
+                        
                         //     const blob = await response.blob();
                         //    FileSaver.saveAs(blob, "my_download_file.txt");
                         //     setOpen(false)
@@ -365,7 +365,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://172.17.151.141:3002/allImgTabExt", formData
+                        const response = await axios.post("http://10.93.24.151:3002/allImgTabExt", formData
                             , {
                                 responseType: 'blob'
                             });
@@ -392,7 +392,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://172.17.151.141:3002/pptFileExtraction", formData, {
+                        const response = await axios.post("http://10.93.24.151:3002/pptFileExtraction", formData, {
                             responseType: 'blob'
                         });
                         console.log("resp", response.data.type)
@@ -470,12 +470,13 @@ export default function MathCovertor() {
     }
 
     const downloadData = async () => {
-        if (response.type === "cors") {
-            const blob = await response.blob();
-            FileSaver.saveAs(blob, "my_download_file.txt");
+        if (response.type !== null) {
+           // const blob = await response.blob();
+            const blob = new Blob([response.data]);
+            FileSaver.saveAs(blob, "my_download_file.csv");
             setDownloadStatus(!downloadStatus)
             setOpen(false)
-            toast.success("File downloaded and data extracted successfully");
+            toast.success("File downloaded and data extracted successfully",{autoClose:1000});
             setSelectedFile(null)
         } else if (response.data.type === "application/zip") {
             const blob = new Blob([response.data], { type: 'application/zip' });
@@ -511,6 +512,19 @@ export default function MathCovertor() {
                 </Stack>
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" mt={20}>
+                        {
+                            imageSrc &&
+                            <Stack direction={"row"} my={4} gap={2} >
+                            <Stack sx={{background:"#d1d1d1",px:"30px",py:"22px"}} justifyContent={"center"} alignItems={"center"}>
+                            <img src={filePreviews} alt={'Preview'} width={"300px"} />
+                            </Stack>
+                            <Stack sx={{background:"#d1d1d1"}}>
+                            {/* <img src={imageSrc} alt={'Preview'} width={"300px"} /> */}
+                            <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography>
+                            {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
+                            </Stack>
+                            </Stack>
+                        }
                         <Typography variant="h6" sx={{ color: "#68e043" }}>Extracting tables processed successfully</Typography>
                         <Typography paragraph>Please download the CSV File</Typography>
                         <Button variant="contained" sx={{ width: "300px" }} className="download-button" onClick={downloadData}>Download</Button>

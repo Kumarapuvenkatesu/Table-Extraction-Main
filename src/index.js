@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeContext } from "../src/components/ThemeContext/ThemeContext";
+import { ThemeContext,DataContextProvider } from "../src/components/ThemeContext/ThemeContext";
 //import reportWebVitals from './reportWebVitals';
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -82,8 +82,10 @@ const CustomeThemeProvider = ({ children }) => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <DataContextProvider>
   <CustomeThemeProvider >
     <CssBaseline />
     <App />
   </CustomeThemeProvider>
+  </DataContextProvider>
 );

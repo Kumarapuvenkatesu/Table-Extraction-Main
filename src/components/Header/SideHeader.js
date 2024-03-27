@@ -19,6 +19,7 @@ import TableExtractor from "../../assets/images/table-extractor.png";
 import MathConvertor from "../../assets/images/math-converter.png";
 import PdfToWord from "../../assets/images/pdf-to-word.png";
 import ReceivedFile from "../../assets/images/received-files.png";
+import { useThemeContext } from "../ThemeContext/ThemeContext";
 
 
 const drawerWidth = 240;
@@ -28,6 +29,7 @@ export default function SideHeader() {
   const [tools, setTools] = useState(true);
   const [assets, setAssets] = useState(true);
   const [activeItem, setActiveItem] = useState("");
+  const data = useThemeContext()
 
   const handleClick = () => {
     setOpen(!open);
@@ -46,6 +48,7 @@ export default function SideHeader() {
       <TextHeader />
 
       <Drawer
+      className={data.theme ? "side-text-color" : "normal-text-color"}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
