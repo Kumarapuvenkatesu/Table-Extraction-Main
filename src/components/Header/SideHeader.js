@@ -17,6 +17,8 @@ import ReceivedFile from "../../assets/images/received-files.png";
 import { useThemeContext } from "../ThemeContext/ThemeContext";
 
 
+
+
 const drawerWidth = 240;
 
 export default function SideHeader() {
@@ -66,11 +68,11 @@ export default function SideHeader() {
           height: "100%"
         }}>
           <List >
-            <List component="li" disablePadding sx={{ my: "12px" }}>
+            <List component="li" disablePadding sx={{ my: "12px" }} >
               <ListItemButton component={NavLink} to="/"  >
                 {/* <ListItemIcon> */}
                 <img src={Dashboard} alt='Dashboard' />
-                <ListItemText primary="Dashboard" />
+                <ListItemText primary="Dashboard" className='red'/>
                 {/* </ListItemIcon> */}
               </ListItemButton>
             </List>

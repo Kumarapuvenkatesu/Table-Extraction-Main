@@ -90,7 +90,7 @@ export default function DashBoard() {
                     <TableRow>
                       <TableCell>{data1.selectedFileEl.name}</TableCell>
                       <TableCell>{data1.selectedFileEl.type}</TableCell>
-                      <TableCell>{new Date().toDateString()},{new Date().toLocaleTimeString()}</TableCell>
+                      <TableCell>{data1.selectedFileEl!==" " && `${new Date().toDateString()}, ${new Date().toLocaleTimeString()}`}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>

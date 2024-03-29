@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {HashRouter, Routes, Route } from 'react-router-dom';
 import { Loading } from './components/FileUpload/Loading';
 const Signup = lazy(() => import('./components/Signup/Signup'));
 const Login = lazy(() => import('./components/Login/Login'));
@@ -15,7 +15,7 @@ const SingleFile = lazy(() => import('./components/FileUpload/SingleFile'));
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path='/signup' element={<Signup />} />
@@ -31,6 +31,6 @@ export default function App() {
         </Routes>
       </Suspense>
       {/* <Footer /> */}
-    </BrowserRouter>
+    </HashRouter>
   )
 }

@@ -1,8 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;500;600&family=Figtree:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Urbanist:wght@300;400;500;600;700&display=swap');
-body {
-  background-color: #fafafa;
-  font-family: 'Chivo', sans-serif;
-}
+
+
 .container {
   width: 1140px;
   margin: 0 auto;

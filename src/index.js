@@ -6,11 +6,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeContext,DataContextProvider } from "../src/components/ThemeContext/ThemeContext";
 
+
 const CustomeThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(false)
   const toggleTheme = () => {
     setTheme((pt) => !pt)
   }
+
   const themeMode = createTheme({
     palette: {
       mode: theme ? 'dark' : 'light',
@@ -52,6 +54,13 @@ const CustomeThemeProvider = ({ children }) => {
 
       // }
 
+    },
+    typography: {
+      fontFamily: 'Titillium Web, Arial, sans-serif',
+      // fontWeightRegular: 400,
+      fontWeightBold: 700,
+      fontSize: 18,
+      
     },
 
   });
