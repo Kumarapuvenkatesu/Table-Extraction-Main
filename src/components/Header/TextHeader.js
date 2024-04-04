@@ -36,7 +36,7 @@ export default function TextHeader() {
       }}
     >
       <Toolbar>
-        <Typography variant="h4" noWrap className="heading-tag" sx={{ marginLeft: "20px" }}>
+        <Typography variant="h4" noWrap className="heading-tag" sx={{ marginLeft: "20px",fontWeight:"550" }}>
           {text}
         </Typography>
       </Toolbar>
