@@ -65,7 +65,7 @@ export default function MathCovertor() {
                         //     method: "POST",
                         //     body: formData,
                         // });
-                        const response = await axios.post('http://10.93.24.151:3003/formExt', formData)
+                        const response = await axios.post('http://10.93.24.151:3002/formExt', formData)
                         console.log("data", response)
                         setImageSrc(response.data)
                         setResponse(response)
@@ -82,7 +82,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3003/zipImgFormExt", formData
+                        const response = await axios.post("http://10.93.24.151:3002/zipImgFormExt", formData
                             , {
                                 responseType: 'blob'
                             });
@@ -99,7 +99,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3003/pptFileFormExt", formData, {
+                        const response = await axios.post("http://10.93.24.151:3002/pptFileFormExt", formData, {
                             responseType: 'blob'
                         });
                         console.log("resp", response.data.type)

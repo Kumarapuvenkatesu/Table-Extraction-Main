@@ -33,6 +33,7 @@ export default function TextHeader() {
       position="fixed"
       sx={{
         width: `calc(100% - ${240}px)`, ml: `${240}px`,
+
       }}
     >
       <Toolbar>

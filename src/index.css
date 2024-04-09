@@ -173,6 +173,7 @@ padding: 10px;
   margin: 0 auto;
   /* padding: 2em; */
   cursor: pointer;
+  box-shadow: 0px 0px 0px -1px rgba(0,0,0,0.2),0px 3px 3px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 .fileupload-row {
   margin-top: 10rem;
@@ -265,6 +266,7 @@ a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListIte
 .css-7ow9tn-MuiPaper-root-MuiAppBar-root{
   box-shadow: none !important;
   border-bottom:1.5px solid rgb(235 232 232);
+
 }
 .css-1fivbfg{
   height: 100vh;
@@ -283,4 +285,8 @@ a img{
 }
 .css-unp16h-MuiTypography-root{
   font-weight: 550 !important;
+}
+.css-qsau7c-MuiTypography-root{
+  font-weight: bold !important;
+  font-size: 1.6rem !important;
 }
