@@ -29,7 +29,7 @@ const Header = () => {
   const role = (JSON.parse(localStorage.getItem("LoginDetails"))?.name);
 
   return (
-    <AppBar className='main-header1' position="stastic"  >
+    <AppBar className='main-header1' position="static"  >
       <Toolbar direction={"column"}>
         <Stack direction={"row"} sx={{ flexGrow: 1 }}>
           <img src={IMG} alt="logo" style={{ height: "30px", marginTop: "1rem" }} />

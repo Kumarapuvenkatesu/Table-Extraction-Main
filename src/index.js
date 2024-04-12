@@ -17,7 +17,7 @@ const CustomeThemeProvider = ({ children }) => {
     palette: {
       mode: theme ? 'dark' : 'light',
       primary: {
-        main: '#ffffff',
+        main: '#f20505',
         
       },
       secondary: {

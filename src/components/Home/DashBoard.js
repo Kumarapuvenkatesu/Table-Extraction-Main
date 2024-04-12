@@ -86,13 +86,13 @@ export default function DashBoard() {
                       <TableCell>Date and Time</TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody>
+                  {/* <TableBody>
                     <TableRow>
                       <TableCell>{data1.selectedFileEl.name}</TableCell>
                       <TableCell>{data1.selectedFileEl.type}</TableCell>
-                      <TableCell>{data1.selectedFileEl.length>0 && `${new Date().toDateString()}, ${new Date().toLocaleTimeString()}`}</TableCell>
+                      <TableCell>{data1.selectedFileEl!==null && `${new Date().toDateString()}, ${new Date().toLocaleTimeString()}`}</TableCell>
                     </TableRow>
-                  </TableBody>
+                  </TableBody> */}
                 </Table>
               </TableContainer>
             </Stack>
@@ -108,7 +108,7 @@ export default function DashBoard() {
                     {item.icon}
                   </Stack>
                   <Stack >
-                    <Typography variant="" h6>{item.Text}</Typography>
+                    <Typography paragraph sx={{fontSize:"1.1rem"}} >{item.Text}</Typography>
                   </Stack>
                 </Stack>
               ))

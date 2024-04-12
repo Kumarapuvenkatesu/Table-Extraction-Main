@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import ThemeMode from './ThemeMode';
 import TextHeader from './TextHeader';
 import Logo from "../../assets/images/logo.png";
+// import Logo from "../../assets/straive-logo.png";
 import Dashboard from "../../assets/images/dashboard.png";
 import TableExtractor from "../../assets/images/table-extractor.png";
 import MathConvertor from "../../assets/images/math-converter.png";

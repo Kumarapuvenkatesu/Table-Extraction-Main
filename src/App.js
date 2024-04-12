@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import {HashRouter, Routes, Route } from 'react-router-dom';
 import { Loading } from './components/FileUpload/Loading';
-const Signup = lazy(() => import('./components/Signup/Signup'));
+// const Signup = lazy(() => import('./components/Signup/Signup'));
 const Login = lazy(() => import('./components/Login/Login'));
 const NotFound = lazy(() => import('./components/NotFound/NotFound'));
 const Pdf = lazy(() => import("./components/FileUpload/Pdf"));
@@ -18,7 +18,7 @@ export default function App() {
     <HashRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path='/signup' element={<Signup />} />
+          {/* <Route path='/signup' element={<Signup />} /> */}
           <Route path='/login' element={<Login />} />
           <Route path='/' element={<Home />} />
           <Route path='/table-extraction' element={<TableExtraction />} />

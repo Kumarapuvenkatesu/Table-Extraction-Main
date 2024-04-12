@@ -7,7 +7,7 @@ export const useThemeContext = () => useContext(ThemeContext)
 export const DataContext = createContext();
 
 export const DataContextProvider = ({ children }) => {
-  const [selectedFileEl, setSelectedFileEl] = useState([]);
+  const [selectedFileEl, setSelectedFileEl] = useState([null]);
 
   return (
     <DataContext.Provider value={{selectedFileEl, setSelectedFileEl}}>

@@ -51,13 +51,11 @@ export default function Forget() {
     setShowPassword((prevState) => !prevState)
   }
 
-
   return (
     <Stack>
       <Header/>
       <Container component="main" maxWidth="xs" >
         <ToastContainer />
-
         {
           value ?
             (
@@ -68,7 +66,6 @@ export default function Forget() {
                 fullWidth
                 value={forgetEl}
               />
-
               <FormControl sx={{ m: 1, ml: 0, mr: 0 }} variant="outlined" fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <OutlinedInput
@@ -111,12 +108,9 @@ export default function Forget() {
                   value={forgetEl}
                   onChange={(event) => setForgetEl(event.target.value)}
                 />
-
-
-                <Button variant="contained" type="submit" fullWidth className="button" sx={{ mt: 3, mb: 2 }}>Forget</Button>
+                <Button variant="contained" type="submit" fullWidth className="download-button" sx={{ mt: 3, mb: 2 }} disabled>Forget</Button>
               </Box>)
         }
-
         <Link to={"/login"} >LOGIN</Link>
       </Container>
     </Stack>

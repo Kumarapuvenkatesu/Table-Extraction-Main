@@ -20,11 +20,11 @@ export default function Login() {
     e.preventDefault();
     try {
       //  const response = await loginUrl(email, password)
-      const response = await axios.post("http://10.93.24.151:3003/login", { email, password });
-      //const response =await axios.post("http://localhost:3001/login",{email,password});
+      // const response = await axios.post("http://10.93.24.151:3003/login", { email, password });
+      const response =await axios.post("http://localhost:3001/login",{email,password});
       console.log("response loginpage extract", response);
       if (response.data.status === "success") {
-        console.log("its true")
+        // console.log("its true")
         localStorage.setItem("LoginDetails", JSON.stringify(response.data));
         Cookies.set("token", response.data.token1, { expires: 1 })
         if (response.data.role) {
@@ -33,7 +33,7 @@ export default function Login() {
         }
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data)
       }
     } catch (error) {
       toast.error(error)
@@ -85,7 +85,7 @@ export default function Login() {
             <Link variant="span" to="/forget">
               Forgot password?
             </Link>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, }} className='button'  >
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, }} className='download-button'  >
               Login
             </Button>
             {/* <Link  variant="span" to="/signup">

@@ -235,7 +235,7 @@ padding: 10px;
   border-radius: 7px;
   /* margin-right: 1rem; */
 }
-a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.css-1r8ijuk-MuiButtonBase-root-MuiListItemButton-root.active {
+a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.css-38w50g-MuiButtonBase-root-MuiListItemButton-root.active {
   background-color: #cbd9ed ;
   border-radius: 7px;
 }
@@ -263,10 +263,14 @@ a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListIte
 .main-header1{
   background-color: #9bb2e8 !important;
 }
-.css-7ow9tn-MuiPaper-root-MuiAppBar-root{
+/* .css-7ow9tn-MuiPaper-root-MuiAppBar-root{
   box-shadow: none !important;
   border-bottom:1.5px solid rgb(235 232 232);
-
+} */
+.heal{
+  box-shadow: none !important;
+  border-bottom:1.5px solid rgb(235 232 232);
+  background-color: transparent !important;
 }
 .css-1fivbfg{
   height: 100vh;
@@ -289,4 +293,7 @@ a img{
 .css-qsau7c-MuiTypography-root{
   font-weight: bold !important;
   font-size: 1.6rem !important;
+}
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+  border:  none !important;
 }

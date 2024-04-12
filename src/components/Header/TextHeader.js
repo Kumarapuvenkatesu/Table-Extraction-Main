@@ -30,6 +30,7 @@ export default function TextHeader() {
 
   return (
     <AppBar
+    className="heal"
       position="fixed"
       sx={{
         width: `calc(100% - ${240}px)`, ml: `${240}px`,
@@ -37,7 +38,7 @@ export default function TextHeader() {
       }}
     >
       <Toolbar>
-        <Typography variant="h4" noWrap className="heading-tag" sx={{ marginLeft: "20px",fontWeight:"550" }}>
+        <Typography variant="h5" noWrap className="heading-tag" sx={{ marginLeft: "20px",fontWeight:"550", }}>
           {text}
         </Typography>
       </Toolbar>

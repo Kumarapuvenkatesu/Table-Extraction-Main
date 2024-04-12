@@ -8,7 +8,8 @@ import { useThemeContext } from "../ThemeContext/ThemeContext";
 import { Close } from "@mui/icons-material";
 import SideHeader from "../Header/SideHeader";
 import TableExtract from "../../assets/images/img-fromate.png";
-import TableConverting from "../../assets/images/img-table-convert.png"
+import TableConverting from "../../assets/images/img-table-convert.png";
+// import {pandas,DataFrame,Series} from "pandas-js";
 
 export default function MathCovertor() {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -21,7 +22,7 @@ export default function MathCovertor() {
 
     const onFileChange = (e) => {
         const files = e.target.files;
-        console.log("files", files)
+       // console.log("files", files)
         if (files) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
@@ -64,8 +65,10 @@ export default function MathCovertor() {
                         //     method: "POST",
                         //     body: formData,
                         // });
-                        const response = await axios.post('http://10.93.24.151:3003/tableExtraction', formData)
+                        const response = await axios.post('http://10.93.24.151:3003/tableExtraction', formData);
+                     console.log("1112",response)
                         setImageSrc(response.data)
+                   
                         setResponse(response)
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)
@@ -121,6 +124,8 @@ export default function MathCovertor() {
     const handleDragOver = (event) => {
         event.preventDefault();
     };
+    console.log("111",imageSrc)
+   
 
     const handleDragFiles = (event) => {
         event.preventDefault();
@@ -208,6 +213,7 @@ export default function MathCovertor() {
                 </Stack>
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" mt={20}>
+                        
                         {
                             imageSrc &&
                             <Stack direction={"row"} my={4} gap={2} >
@@ -215,7 +221,28 @@ export default function MathCovertor() {
                                     <img src={filePreviews} alt={'Preview'} width={"300px"} />
                                 </Stack>
                                 <Stack sx={{ background: "#d1d1d1" }}>
-                                    <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography>
+                                    {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography> */}
+                                    <table>
+                                        <tbody>
+                                            {/* {imageSrc.LinesArray && imageSrc.LinesArray.map((line, index) => {
+                                                    if (index % 8 === 0) {
+                                                        return (
+                                                        <tr key={index}>
+                                                            <td>{line.Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 1].Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 2].Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 3].Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 4].Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 5].Line}</td>
+                                                            <td>{imageSrc.LinesArray[index + 6].Line}</td>
+                                                        </tr>
+                                                        );
+                                                    }
+                                                        })} 
+                                            */}
+                                                {imageSrc?.data.slice(11)}
+                                        </tbody>
+                                    </table>
                                     {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
                                 </Stack>
                             </Stack>
