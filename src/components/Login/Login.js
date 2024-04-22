@@ -20,8 +20,8 @@ export default function Login() {
     e.preventDefault();
     try {
       //  const response = await loginUrl(email, password)
-      // const response = await axios.post("http://10.93.24.151:3003/login", { email, password });
-      const response =await axios.post("http://localhost:3001/login",{email,password});
+      const response = await axios.post("http://10.93.24.151:3003/login", { email, password });
+      // const response =await axios.post("http://localhost:3001/login",{email,password});
       console.log("response loginpage extract", response);
       if (response.data.status === "success") {
         // console.log("its true")
@@ -33,7 +33,8 @@ export default function Login() {
         }
       }
       else {
-        toast.error(response.data)
+       // toast.error(response.data)
+        toast.error(response.data.message)
       }
     } catch (error) {
       toast.error(error)

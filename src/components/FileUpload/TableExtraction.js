@@ -66,7 +66,7 @@ export default function MathCovertor() {
                         //     body: formData,
                         // });
                         const response = await axios.post('http://10.93.24.151:3003/tableExtraction', formData);
-                     console.log("1112",response)
+                    console.log("1112",response)
                         setImageSrc(response.data)
                    
                         setResponse(response)
@@ -124,7 +124,8 @@ export default function MathCovertor() {
     const handleDragOver = (event) => {
         event.preventDefault();
     };
-    console.log("111",imageSrc)
+    // console.log(JSON.parse(imageSrc))
+
    
 
     const handleDragFiles = (event) => {
@@ -174,6 +175,7 @@ export default function MathCovertor() {
         if (response.type !== null) {
             // const blob = await response.blob();
             const blob = new Blob([response.data]);
+            console.log(blob);
             FileSaver.saveAs(blob, "my_download_file.csv");
             setDownloadStatus(!downloadStatus)
             setOpen(false)
@@ -238,9 +240,9 @@ export default function MathCovertor() {
                                                         </tr>
                                                         );
                                                     }
-                                                        })} 
-                                            */}
-                                                {imageSrc?.data.slice(11)}
+                                                        })}  */}
+                                           
+                                               
                                         </tbody>
                                     </table>
                                     {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}

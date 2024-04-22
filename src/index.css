@@ -297,3 +297,15 @@ a img{
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
   border:  none !important;
 }
+@media screen and (max-width:1023px) {
+  .shows{
+    display: block ;
+  }
+}
+@media screen and (min-width:1023px) {
+  .header-text{
+    width: calc(100% - 240px) !important;
+    margin-left: 240px;
+  }
+  
+}

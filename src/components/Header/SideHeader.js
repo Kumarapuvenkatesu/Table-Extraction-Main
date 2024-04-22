@@ -16,6 +16,8 @@ import MathConvertor from "../../assets/images/math-converter.png";
 import PdfToWord from "../../assets/images/pdf-to-word.png";
 import ReceivedFile from "../../assets/images/received-files.png";
 import { useThemeContext } from "../ThemeContext/ThemeContext";
+import { useMediaQuery } from "@mui/material";
+
 
 
 
@@ -28,6 +30,7 @@ export default function SideHeader() {
   const [assets, setAssets] = useState(true);
   const [activeItem, setActiveItem] = useState("");
   const data = useThemeContext()
+  const isScreenLarge = useMediaQuery('(min-width:1024px)');
 
   const handleClick = () => {
     setOpen(!open);
@@ -44,8 +47,8 @@ export default function SideHeader() {
   return (
     <>
       <TextHeader />
-      <Drawer
-        className={data.theme ? "side-text-color" : "normal-text-color"}
+      {isScreenLarge ?<Drawer
+        // className={data.theme ? "side-text-color" : "normal-text-color"}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -57,6 +60,7 @@ export default function SideHeader() {
         }}
         variant="permanent"
         anchor="left"
+        open={isScreenLarge} 
       >
         <Toolbar sx={{ cursor: "Pointer" }}>
           <img src={Logo} alt="Tech Tools" />
@@ -71,10 +75,8 @@ export default function SideHeader() {
           <List >
             <List component="li" disablePadding sx={{ my: "12px" }} >
               <ListItemButton component={NavLink} to="/"  >
-                {/* <ListItemIcon> */}
                 <img src={Dashboard} alt='Dashboard' />
-                <ListItemText primary="Dashboard" className='red'/>
-                {/* </ListItemIcon> */}
+                <ListItemText primary="Dashboard" className='red'/> 
               </ListItemButton>
             </List>
             <List component="li" disablePadding sx={{ my: "15px" }}>
@@ -83,7 +85,7 @@ export default function SideHeader() {
                 {open ? <ExpandMore /> : <ExpandLess />}
               </ListItemButton>
               <Collapse in={open} >
-                <List component="li" disablePadding>
+                <List component="div" disablePadding>
                   <ListItemButton component={NavLink} to="/table-extraction"  >
                     <img src={TableExtractor} alt="Table Extraction" />
                     <ListItemText primary="Table Extracter" />
@@ -101,7 +103,7 @@ export default function SideHeader() {
                 {tools ? <ExpandMore /> : <ExpandLess />}
               </ListItemButton>
               <Collapse in={tools} >
-                <List component="li" disablePadding>
+                <List component="div" disablePadding>
                   <ListItemButton component={NavLink} to="/pdf-to-word"  >
                     <img src={PdfToWord} alt='pdf-to-word' />
                     <ListItemText primary="PDF to Word" />
@@ -115,7 +117,7 @@ export default function SideHeader() {
                 {assets ? <ExpandMore /> : <ExpandLess />}
               </ListItemButton>
               <Collapse in={assets} >
-                <List component="li" disablePadding>
+                <List component="div" disablePadding>
                   <ListItemButton component={NavLink} to="/received-files" >
                     <img src={ReceivedFile} alt='ReceivedFiles' />
                     <ListItemText primary="Received Files" />
@@ -126,7 +128,8 @@ export default function SideHeader() {
           </List>
           <ThemeMode />
         </Stack>
-      </Drawer>
+      </Drawer>:"hello"}
+      
     </>
   )
 }

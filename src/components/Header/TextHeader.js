@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 
 export default function TextHeader() {
   const [text, setText] = useState('');
@@ -27,19 +29,22 @@ export default function TextHeader() {
         setText("Extractor");
     }
   }, [pathname]);
-
+  const isScreenLarge = useMediaQuery('(min-width:1024px)') ;
+ 
   return (
     <AppBar
-    className="heal"
+      className="heal header-text"
       position="fixed"
-      sx={{
-        width: `calc(100% - ${240}px)`, ml: `${240}px`,
-
-      }}
+      // sx={{
+      //   width: `calc(100% - ${240}px)`,
+      //   ml: `${240}px`,
+      //   // width:{isScreenLarge},
+      //   // ml:{isScreenLarge}
+      // }}
     >
       <Toolbar>
-        <Typography variant="h5" noWrap className="heading-tag" sx={{ marginLeft: "20px",fontWeight:"550", }}>
-          {text}
+        <Typography variant="h5" noWrap className="heading-tag" sx={{ marginLeft: "20px", fontWeight: "550", }}>
+          {text}{isScreenLarge ?null :<MenuIcon/>}
         </Typography>
       </Toolbar>
     </AppBar>
