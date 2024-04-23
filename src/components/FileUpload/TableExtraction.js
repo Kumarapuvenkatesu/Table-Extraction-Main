@@ -9,31 +9,31 @@ import { Close } from "@mui/icons-material";
 import SideHeader from "../Header/SideHeader";
 import TableExtract from "../../assets/images/img-fromate.png";
 import TableConverting from "../../assets/images/img-table-convert.png";
-// import {pandas,DataFrame,Series} from "pandas-js";
+import Cookies from "js-cookie";
 
 export default function MathCovertor() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [filePreviews, setFilePreviews] = useState([]);
-    const [open, setOpen] =useState(false);
+    const [open, setOpen] = useState(false);
     const [downloadStatus, setDownloadStatus] = useState(false);
     const [response, setResponse] = useState([]);
+    const [tableHead, setTableHead] = useState();
     const [imageSrc, setImageSrc] = useState();
     const data = useThemeContext()
 
     const onFileChange = (e) => {
         const files = e.target.files;
-       // console.log("files", files)
+        // console.log("files", files)
         if (files) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                if (
+                if 
                     (file.type === "application/x-zip-compressed" ||
                         file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
                         /image\/(jpeg|png|jpg|jpg)/.test(file.type))
-                    // file.type === "image/jpeg" || file.type === "image/png")
-                    &&
-                    (file.size <= 1024 * 1024)
-                ) {
+                    // &&
+                    // (file.size <= 1024 * 1024)
+                 {
                     setSelectedFile(file);
                     toast.success("File uploaded", {
                         autoClose: 1000
@@ -65,15 +65,34 @@ export default function MathCovertor() {
                         //     method: "POST",
                         //     body: formData,
                         // });
-                        const response = await axios.post('http://10.93.24.151:3003/tableExtraction', formData);
-                    console.log("1112",response)
-                        setImageSrc(response.data)
-                   
+                        const response = await axios.post('http://10.91.10.142:3002/tableExtraction', formData);
+                        console.log("1112", response.data)
+                        const splitLine = response.data.split("\n")
+                        var header = null
+                        var body = []
+                        splitLine.forEach((sc, i) => {
+                            if (i != 0 && i != 1) {
+                                console.log(sc.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g));
+                                var newsc = sc.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+                                if (newsc !== null) {
+                                    newsc.shift();
+                                    body.push(newsc);
+                                }
+                            }
+                            if (i == 1) {
+                                header = sc.split(",");
+                                console.log("header",header);
+                            }
+                        });
+                        header.shift()
+                        setTableHead(header)
+                        setImageSrc(body)
                         setResponse(response)
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)
                         }
                     } catch (error) {
+                        console.log(error);
                         toast.error("An error occurred. Please try again.");
                         setOpen(false)
                     }
@@ -82,7 +101,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3003/allImgTabExt", formData
+                        const response = await axios.post("http://10.91.10.142:3002/allImgTabExt", formData
                             , {
                                 responseType: 'blob'
                             });
@@ -99,7 +118,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3003/pptFileExtraction", formData, {
+                        const response = await axios.post("http://10.91.10.142:3002/pptFileExtraction", formData, {
                             responseType: 'blob'
                         });
                         console.log("resp", response.data.type)
@@ -120,14 +139,9 @@ export default function MathCovertor() {
         }
         // setDownloadStatus(null)
     };
-
     const handleDragOver = (event) => {
         event.preventDefault();
     };
-    // console.log(JSON.parse(imageSrc))
-
-   
-
     const handleDragFiles = (event) => {
         event.preventDefault();
         const files = event.dataTransfer.files;
@@ -135,14 +149,13 @@ export default function MathCovertor() {
         if (files) {
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                if (
+                if 
                     (file.type === "application/x-zip-compressed" ||
                         file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
-                        // file.type === "image/png"||"image/jpg") 
                         /image\/(jpeg|png|jpg|jpg)/.test(file.type))
-                    &&
-                    (file.size <= 1024 * 1024)
-                ) {
+                    // &&
+                    // (file.size <= 1024 * 1024)
+                 {
                     setSelectedFile(file);
                     toast.success("File uploaded");
                     displayImagePreviews(file)
@@ -205,6 +218,13 @@ export default function MathCovertor() {
         // }
     }
 
+    useEffect(() => {
+        const jwtToken = Cookies.get("token");
+        if (jwtToken === undefined) {
+          window.location.href = "#/login"
+        }
+      }, [undefined])
+
     return (
         <Box display={"flex"} justifyContent={"center"} alignItems={"flex-end"}>
             <SideHeader />
@@ -214,38 +234,42 @@ export default function MathCovertor() {
                     <Typography p={1} variant="h5" sx={{ color: data.theme ? "head" : "#1b386e" }}>Extract Tabular Data from images and PPT files</Typography>
                 </Stack>
                 {downloadStatus ? (
-                    <Stack direction="column" justifyContent="center" alignItems="center" mt={20}>
-                        
+                    <Stack direction="column" justifyContent="center" alignItems="center" mt={4}>
                         {
                             imageSrc &&
-                            <Stack direction={"row"} my={4} gap={2} >
+                            <Stack direction={"row"} my={1} gap={2} >
                                 <Stack sx={{ background: "#d1d1d1", px: "30px", py: "22px" }} justifyContent={"center"} alignItems={"center"}>
                                     <img src={filePreviews} alt={'Preview'} width={"300px"} />
                                 </Stack>
-                                <Stack sx={{ background: "#d1d1d1" }}>
-                                    {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}> {imageSrc}</Typography> */}
-                                    <table>
-                                        <tbody>
-                                            {/* {imageSrc.LinesArray && imageSrc.LinesArray.map((line, index) => {
-                                                    if (index % 8 === 0) {
+                                <Stack sx={{ background: "#d1d1d1",p:"10px" }}>
+                                    <table border={1} style={{ borderCollapse: "collapse" }}>
+                                        <thead>
+                                            <tr>
+                                                {
+                                                    tableHead?.length &&
+                                                    tableHead.map((thData, i) => {
                                                         return (
-                                                        <tr key={index}>
-                                                            <td>{line.Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 1].Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 2].Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 3].Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 4].Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 5].Line}</td>
-                                                            <td>{imageSrc.LinesArray[index + 6].Line}</td>
+                                                            <th key={i}>{thData}</th>
+                                                        )
+                                                    })
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                imageSrc?.length &&
+                                                imageSrc.map(isrc => {
+                                                    return (
+                                                        <tr >
+                                                            {
+                                                                isrc.map(isrcdata => (<td>{isrcdata}</td>))
+                                                            }
                                                         </tr>
-                                                        );
-                                                    }
-                                                        })}  */}
-                                           
-                                               
+                                                    )
+                                                })
+                                            }
                                         </tbody>
                                     </table>
-                                    {/* <Typography paragraph width={"300px"} height={"350px"} overflow={"auto"}dangerouslySetInnerHTML={{ __html: imageSrc }}/> */}
                                 </Stack>
                             </Stack>
                         }
