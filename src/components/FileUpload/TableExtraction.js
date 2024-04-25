@@ -18,7 +18,7 @@ export default function MathCovertor() {
     const [downloadStatus, setDownloadStatus] = useState(false);
     const [response, setResponse] = useState([]);
     const [tableHead, setTableHead] = useState();
-    const [imageSrc, setImageSrc] = useState();
+    const [imageSrc, setImageSrc] = useState(null);
     const data = useThemeContext()
 
     const onFileChange = (e) => {
@@ -66,7 +66,7 @@ export default function MathCovertor() {
                         //     body: formData,
                         // });
                         const response = await axios.post('http://10.91.10.142:3002/tableExtraction', formData);
-                        console.log("1112", response.data)
+                        console.log("1112", response)
                         const splitLine = response.data.split("\n")
                         var header = null
                         var body = []
@@ -105,6 +105,7 @@ export default function MathCovertor() {
                             , {
                                 responseType: 'blob'
                             });
+                            console.log("resp", response.data.type)
                         setResponse(response)
                         if (response.status === 200) {
                             setDownloadStatus(!downloadStatus)
@@ -121,6 +122,7 @@ export default function MathCovertor() {
                         const response = await axios.post("http://10.91.10.142:3002/pptFileExtraction", formData, {
                             responseType: 'blob'
                         });
+                        console.log("data",response);
                         console.log("resp", response.data.type)
                         setResponse(response)
                         if (response.status === 200) {
@@ -184,38 +186,32 @@ export default function MathCovertor() {
         setSelectedFile(null)
     }
 
-    const downloadData = async () => {
-        if (response.type !== null) {
-            // const blob = await response.blob();
-            const blob = new Blob([response.data]);
-            console.log(blob);
-            FileSaver.saveAs(blob, "my_download_file.csv");
-            setDownloadStatus(!downloadStatus)
-            setOpen(false)
-            toast.success("File downloaded and data extracted successfully", { autoClose: 1000 });
-            setSelectedFile(null)
-        } else if (response.data.type === "application/zip") {
-            const blob = new Blob([response.data], { type: 'application/zip' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'my_download_file.zip');
-            link.click();
-            setDownloadStatus(!downloadStatus)
-            setOpen(false)
-            toast.success("Files uploaded and data extracted successfully");
-            setSelectedFile(null)
-        }
-        // else if(response.data.type==="application/json"){
-        //       const blob = new Blob([response.data], { type: 'application/zip' });
-        //                 const url = window.URL.createObjectURL(blob);
-        //                 const link = document.createElement('a');
-        //                 link.href = url;
-        //                 link.setAttribute('download', 'my_powerpoint_file.zip');
-        //                 link.click();
-        //                 toast.success("Files uploaded and data extracted successfully");
-        //                 setSelectedFile(null)
-        // }
+    const downloadData =  () => {
+        switch (response.type || response.data.type) {
+            case 'application/zip':
+              const blobZip = new Blob([response.data], { type: 'application/zip' });
+              const urlZip = window.URL.createObjectURL(blobZip);
+              const linkZip = document.createElement('a');
+              linkZip.href = urlZip;
+              linkZip.setAttribute('download', 'my_download_file.zip');
+              linkZip.click();
+              break;
+              case 'application/json':
+                const blobPpt = new Blob([response.data], { type: 'application/zip' });
+                const urlPpt = window.URL.createObjectURL(blobPpt);
+                const linkPpt = document.createElement('a');
+                linkPpt.href = urlPpt;
+                linkPpt.setAttribute('download', 'my_download_file.zip');
+                linkPpt.click();
+                break;
+            default:
+                const blob = new Blob([response.data], { type: 'text/csv' });
+                FileSaver.saveAs(blob, 'my_download_file.csv');
+                setImageSrc(null)
+          }setDownloadStatus(!downloadStatus);
+          setOpen(false);
+          toast.success("File downloaded and data extracted successfully", { autoClose: 1000 });
+          setSelectedFile(null);
     }
 
     useEffect(() => {
@@ -236,7 +232,7 @@ export default function MathCovertor() {
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" mt={4}>
                         {
-                            imageSrc &&
+                            imageSrc !== null &&
                             <Stack direction={"row"} my={1} gap={2} >
                                 <Stack sx={{ background: "#d1d1d1", px: "30px", py: "22px" }} justifyContent={"center"} alignItems={"center"}>
                                     <img src={filePreviews} alt={'Preview'} width={"300px"} />

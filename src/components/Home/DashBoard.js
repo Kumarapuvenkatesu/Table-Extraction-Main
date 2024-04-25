@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import { Box, Stack, Typography, TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from "@mui/material";
 import SideHeader from "../Header/SideHeader";
 import Assest from "../../assets/images/asset-dcouments.png";
@@ -12,6 +12,7 @@ import WebPage from "../../assets/images/web-page.png";
 import CSS from "../../assets/images/css.png";
 import dash from "../../assets/04.png";
 import { DataContext } from "../ThemeContext/ThemeContext";
+import Cookies from "js-cookie";
 
 export default function DashBoard() {
   const data1 = useContext(DataContext);
@@ -46,6 +47,12 @@ export default function DashBoard() {
       Text: "CSS Generator"
     }
   ]
+  useEffect(() => {
+    const jwtToken = Cookies.get("token");
+    if (jwtToken === undefined) {
+      window.location.href = "#/login"
+    }
+  }, [undefined])
 
   return (
     <Box display={"flex"} justifyContent={"flex-start"} alignItems={"flex-end"} gap={4}>

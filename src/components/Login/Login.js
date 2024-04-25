@@ -40,12 +40,12 @@ export default function Login() {
       toast.error(error)
     }
   };
-  // useEffect(() => {
-  //   const jwtToken = Cookies.get('token');
-  //   if (jwtToken !== undefined) {
-  //     window.location.href = '/fileupload';
-  //   }
-  // }, []);
+  useEffect(() => {
+    const jwtToken = Cookies.get('token');
+    if (jwtToken !== undefined) {
+      window.location.href = '/';
+    }
+  }, []);
 
   return (
     <>

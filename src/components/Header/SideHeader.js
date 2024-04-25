@@ -111,7 +111,7 @@ export default function SideHeader() {
                 </List>
               </Collapse>
             </List>
-            <List component="li" disablePadding sx={{ my: "15px" }}>
+            {/* <List component="li" disablePadding sx={{ my: "15px" }}>
               <ListItemButton onClick={handleAssets}>
                 <Typography paragraph mb={0}>Assets</Typography>
                 {assets ? <ExpandMore /> : <ExpandLess />}
@@ -124,7 +124,7 @@ export default function SideHeader() {
                   </ListItemButton>
                 </List>
               </Collapse>
-            </List>
+            </List> */}
           </List>
           <ThemeMode />
         </Stack>

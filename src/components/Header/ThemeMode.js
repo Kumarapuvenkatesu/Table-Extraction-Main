@@ -5,6 +5,7 @@ import { DarkMode, LightMode } from '@mui/icons-material';
 import { useThemeContext } from "../ThemeContext/ThemeContext";
 import LogoutIcon from '@mui/icons-material/Logout';
 import Person from "../../assets/images/my-profile.png";
+import Cookies from 'js-cookie';
 
 export default function ThemeMode() {
   const data = useThemeContext();
@@ -14,15 +15,17 @@ export default function ThemeMode() {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const removeToken=()=>{
+    Cookies.remove("token");
+    window.location.href="#/login";
   }
 
   return (
     <Box sx={{ pb: 3 }}>
       <Stack direction={"row"} gap={2} justifyContent={"space-between"} alignItems={"center"} >
-
         <IconButton size="large" disableRipple>
           <img src={Person} alt='person' />
           <Typography pt={1}> My Profile</Typography>
@@ -40,9 +43,9 @@ export default function ThemeMode() {
               }
             </Button>
           </MenuItem>
-          {/* <MenuItem >
+          <MenuItem onClick={removeToken}>
                   <LogoutIcon /> <Button color='info'>Sign Out</Button>
-                </MenuItem> */}
+                </MenuItem>
         </Menu>
       </Stack>
     </Box>

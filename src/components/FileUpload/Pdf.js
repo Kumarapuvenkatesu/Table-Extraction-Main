@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import * as FileSaver from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
@@ -9,7 +9,8 @@ import { useThemeContext } from "../ThemeContext/ThemeContext";
 import { Close } from "@mui/icons-material";
 import SideHeader from "../Header/SideHeader";
 import PDF from "../../assets/images/pdf.png";
-import PDFConverting from "../../assets/images/pdf-word-convert.png"
+import PDFConverting from "../../assets/images/pdf-word-convert.png";
+import Cookies from "js-cookie";
 
 export default function AllFiles() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -127,6 +128,12 @@ export default function AllFiles() {
     // });
     setSelectedFile(null)
   }
+  useEffect(() => {
+    const jwtToken = Cookies.get("token");
+    if (jwtToken === undefined) {
+      window.location.href = "#/login"
+    }
+  }, [undefined])
 
   return (
     <Box display={"flex"} justifyContent={"center"} alignItems={"flex-end"}>

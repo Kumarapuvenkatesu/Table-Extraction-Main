@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import axios from "axios";
 import * as FileSaver from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
@@ -10,6 +10,7 @@ import SideHeader from "../Header/SideHeader";
 import TableExtract from "../../assets/images/img-fromate.png";
 import TableConverting from "../../assets/images/img-table-convert.png";
 import { DataContext } from "../ThemeContext/ThemeContext";
+import Cookies from "js-cookie";
 
 export default function MathCovertor() {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -18,9 +19,8 @@ export default function MathCovertor() {
     const [downloadStatus, setDownloadStatus] = useState(false);
     const [response, setResponse] = useState([]);
     const [imageSrc, setImageSrc] = useState(null);
-    const data = useThemeContext()
-    const { selectedFileEl, setSelectedFileEl } = useContext(DataContext)
-
+    const data = useThemeContext();
+    const { selectedFileEl, setSelectedFileEl } = useContext(DataContext);
     const onFileChange = (e) => {
         const files = e.target.files;
         console.log("files", files)
@@ -31,8 +31,8 @@ export default function MathCovertor() {
                     (file.type === "application/x-zip-compressed" ||
                         file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
                         /image\/(jpeg|png|jpg|jpg)/.test(file.type))
-                    &&
-                    (file.size <= 1024 * 1024)
+                    // &&
+                    // (file.size <= 1024 * 1024)
                 ) {
                     setSelectedFile(file);
                     toast.success("File uploaded", {
@@ -65,7 +65,7 @@ export default function MathCovertor() {
                         //     method: "POST",
                         //     body: formData,
                         // });
-                        const response = await axios.post('http://10.93.24.151:3002/formExt', formData)
+                        const response = await axios.post('http://10.91.10.142:3003/formExt', formData)
                         console.log("data", response)
                         setImageSrc(response.data)
                         setResponse(response)
@@ -82,7 +82,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3002/zipImgFormExt", formData
+                        const response = await axios.post("http://10.91.10.142:3003/zipImgFormExt", formData
                             , {
                                 responseType: 'blob'
                             });
@@ -99,7 +99,7 @@ export default function MathCovertor() {
                     try {
                         const formData = new FormData();
                         formData.append("image", selectedFile);
-                        const response = await axios.post("http://10.93.24.151:3002/pptFileFormExt", formData, {
+                        const response = await axios.post("http://10.91.10.142:3003/pptFileFormExt", formData, {
                             responseType: 'blob'
                         });
                         console.log("resp", response.data.type)
@@ -135,8 +135,8 @@ export default function MathCovertor() {
                     (file.type === "application/x-zip-compressed" ||
                         file.type === "application/vnd.openxmlformats-officedocument.presentationml.presentation" ||
                         /image\/(jpeg|png|jpg|jpg)/.test(file.type))
-                    &&
-                    (file.size <= 1024 * 1024)
+                    // &&
+                    // (file.size <= 1024 * 1024)
                 ) {
                     setSelectedFile(file);
                     toast.success("File uploaded");
@@ -166,32 +166,39 @@ export default function MathCovertor() {
         setSelectedFile(null)
     }
 
-    const downloadData = async () => {
-        if (response.type !== null) {
-            //const blob = await response.blob();
-            const blob = new Blob([response.data]);
-            FileSaver.saveAs(blob, "my_download_file.txt");
-            setDownloadStatus(!downloadStatus)
-            setOpen(false)
-            toast.success("File downloaded and data extracted successfully", {
-                autoClose: 1000
-            });
-            setSelectedFile(null)
-        } else if (response.data.type === "application/zip") {
-            const blob = new Blob([response.data], { type: 'application/zip' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'my_download_file.zip');
-            link.click();
-            setDownloadStatus(!downloadStatus)
-            setOpen(false)
-            toast.success("Files uploaded and data extracted successfully", {
-                autoClose: 1000
-            });
-            setSelectedFile(null)
+    const downloadData =  () => {
+        switch (response.type || response.data.type) {
+            case 'application/zip':
+              const blobZip = new Blob([response.data], { type: 'application/zip' });
+              const urlZip = window.URL.createObjectURL(blobZip);
+              const linkZip = document.createElement('a');
+              linkZip.href = urlZip;
+              linkZip.setAttribute('download', 'my_download_file.zip');
+              linkZip.click();
+              break;
+              case 'application/json':
+                const blobPpt = new Blob([response.data], { type: 'application/zip' });
+                const urlPpt = window.URL.createObjectURL(blobPpt);
+                const linkPpt = document.createElement('a');
+                linkPpt.href = urlPpt;
+                linkPpt.setAttribute('download', 'my_download_file.zip');
+                linkPpt.click();
+                break;
+            default:
+                const blob = new Blob([response.data], { type: 'text/csv' });
+                FileSaver.saveAs(blob, 'my_download_file.txt');
+                setImageSrc(null)
+          }setDownloadStatus(!downloadStatus);
+          setOpen(false);
+          toast.success("File downloaded and data extracted successfully", { autoClose: 1000 });
+          setSelectedFile(null);
         }
-    }
+        useEffect(() => {
+            const jwtToken = Cookies.get("token");
+            if (jwtToken === undefined) {
+              window.location.href = "#/login"
+            }
+          }, [undefined])
 
     return (
         <Box display={"flex"} justifyContent={"center"} alignItems={"flex-end"}>
@@ -204,7 +211,7 @@ export default function MathCovertor() {
                 {downloadStatus ? (
                     <Stack direction="column" justifyContent="center" alignItems="center" >
                         {
-                            imageSrc &&
+                            imageSrc !== null &&
                             <Stack direction={"row"} my={4} gap={2} >
                                 <Stack sx={{ background: "#d1d1d1", px: "30px", py: "22px" }} justifyContent={"center"} alignItems={"center"}>
                                     <img src={filePreviews} alt={'Preview'} width={"300px"} />

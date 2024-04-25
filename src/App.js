@@ -10,7 +10,7 @@ const MathCovertor = lazy(() => import('./components/FileUpload/MathCovertor'));
 const Home = lazy(() => import('./components/Home/DashBoard'));
 const ReceivedFiles = lazy(() => import('./components/FileUpload/ReceivedFiles'));
 const TableExtraction = lazy(() => import('./components/FileUpload/TableExtraction'));
-const SingleFile = lazy(() => import('./components/FileUpload/SingleFile'));
+// const SingleFile = lazy(() => import('./components/FileUpload/SingleFile'));
 // const Footer = lazy(() => import('./components/Footer/Footer'))
 
 export default function App() {
@@ -22,7 +22,7 @@ export default function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/' element={<Home />} />
           <Route path='/table-extraction' element={<TableExtraction />} />
-          <Route path='/file' element={<SingleFile />} />
+          {/* <Route path='/file' element={<SingleFile />} /> */}
           <Route path='/pdf-to-word' element={<Pdf />} />
           <Route path='/math-convertor' element={<MathCovertor />} />
           <Route path='/received-files' element={<ReceivedFiles />} />
