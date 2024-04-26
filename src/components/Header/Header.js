@@ -33,7 +33,7 @@ const Header = () => {
       <Toolbar direction={"column"}>
         <Stack direction={"row"} sx={{ flexGrow: 1 }}>
           <img src={IMG} alt="logo" style={{ height: "30px", marginTop: "1rem" }} />
-          <Typography sx={{ color: "#fff" }} mt={1} variant='h4' >
+          <Typography sx={{ color: "#fff" }}  variant='h4' >
             | Extract Tables
           </Typography>
         </Stack>

@@ -17,50 +17,48 @@ const CustomeThemeProvider = ({ children }) => {
     palette: {
       mode: theme ? 'dark' : 'light',
       primary: {
-        main: '#f20505',
-        
+        main: '#f20505', 
       },
       secondary: {
         main: '#E5E5E5',
         contrastText: '#f20505',
       },
 
-      // ,
-      // text: {
-      //   secondary: 'red'
-      // },
-      // components: {
-      //   MuiList: {
-      //     styleOverrides: {
-      //       root: {
-      //         padding: 0
-      //       }
-      //     }
-      //   },
-      //   MuiInputLabel: {
-      //     styleOverrides: {
-      //       root: {
-      //         color: "inherit !important",
-      //       },
-      //     },
-      //   },
-      //   MuiInputBase: {
-      //     styleOverrides: {
-      //       root: {
-      //         backgroundColor: !theme ? '#fff' : ''
-      //       }
-      //     }
-      //   },
-
-      // }
-
+      
+      text: {
+        secondary: 'red'
+      },
     },
+      components: {
+        MuiList: {
+          styleOverrides: {
+            root: {
+              padding: 0
+            }
+          }
+        },
+        MuiInputLabel: {
+          styleOverrides: {
+            root: {
+              color: "inherit !important",
+            },
+          },
+        },
+        MuiInputBase: {
+          styleOverrides: {
+            root: {
+              backgroundColor: !theme ? '#fff' : ''
+            }
+          }
+        },
+      },
+      
+
+   
     typography: {
       fontFamily: 'Titillium Web, Arial, sans-serif',
-      // fontWeightRegular: 400,
       fontWeightBold: 700,
-      fontSize: 18,
-      
+      fontSize: 18,  
     },
 
   });

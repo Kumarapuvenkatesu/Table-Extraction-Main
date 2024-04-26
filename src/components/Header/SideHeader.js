@@ -55,10 +55,11 @@ export default function SideHeader() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
-            backgroundColor: '#eaf2fc',
+            color:"#fff"
+            // backgroundColor: '#eaf2fc',
           },
         }}
-        variant="permanent"
+        variant="persistent"
         anchor="left"
         open={isScreenLarge} 
       >

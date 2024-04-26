@@ -28,7 +28,7 @@ export default function ThemeMode() {
       <Stack direction={"row"} gap={2} justifyContent={"space-between"} alignItems={"center"} >
         <IconButton size="large" disableRipple>
           <img src={Person} alt='person' />
-          <Typography pt={1}> My Profile</Typography>
+          <Typography pt={1} sx={{color:"#fff"}}> My Profile</Typography>
         </IconButton>
         <IconButton size="large" onClick={handleMenu} disableRipple>
           <MoreHorizIcon />

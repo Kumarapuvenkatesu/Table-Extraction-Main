@@ -55,9 +55,9 @@ export default function DashBoard() {
   }, [undefined])
 
   return (
-    <Box display={"flex"} justifyContent={"flex-start"} alignItems={"flex-end"} gap={4}>
+    <Box     className="dashboard-view">
       <SideHeader />
-      <Box width={"100%"} height={"93vh"} m="1rem" sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+      <Box width={"100%"} height={"100vh"}  sx={{ display: "flex", flexDirection: "column",marginRight:"32px" }}>
         <Stack component={"div"} mt="5rem">
           {/* <img src={dash} alt="dash"/> */}
           <Box display="flex" justifyContent="space-between" alignContent="center" >
@@ -69,9 +69,9 @@ export default function DashBoard() {
                 direction="row"
                 justifyContent={"center"}
                 alignItems="center"
-                sx={{ background: "#ddecfd", height: "145px", width: "350px" }}
+                sx={{  height: "145px", width: "350px" }}
               >
-                <Stack sx={{ background: "#fff", padding: "10px", borderRadius: "14px" }} m={1}  >
+                <Stack sx={{ background: "#006aff", padding: "20px" }} m={1}  >
                   {item.icon}
                 </Stack>
                 <Stack direction="column" m={2}>
@@ -81,7 +81,25 @@ export default function DashBoard() {
               </Stack>
             ))}
           </Box>
-          <Box>
+          <Stack component={"div"}>
+          <Typography variant="h6" my={2} sx={{ color: "#999999" }}>Other Tools you May Like</Typography>
+          <Box display={"flex"} justifyContent={"space-between"} alignItems={"flex-end"} >
+            {
+              anotherTools.map((item, index) => (
+                <Stack key={index} direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{ cursor: "pointer" }}>
+                  <Stack sx={{  padding: "16px", borderRadius: "14px", mb: "4px" }}>
+                    {item.icon}
+                  </Stack>
+                  <Stack >
+                    <Typography paragraph sx={{fontSize:"1.1rem"}} >{item.Text}</Typography>
+                  </Stack>
+                </Stack>
+              ))
+            }
+          </Box>
+        </Stack>
+        </Stack>
+        <Box>
             <Stack>
               <Typography variant="h5" style={{ borderBottom: "1px solid grey", padding: "10px" }} >Recent Files</Typography>
               <TableContainer>
@@ -104,24 +122,6 @@ export default function DashBoard() {
               </TableContainer>
             </Stack>
           </Box>
-        </Stack>
-        <Stack component={"div"}>
-          <Typography variant="h6" my={2} sx={{ color: "#999999" }}>Other Tools you May Like</Typography>
-          <Box display={"flex"} gap={20} alignItems={"flex-end"} >
-            {
-              anotherTools.map((item, index) => (
-                <Stack key={index} direction={"column"} justifyContent={"center"} alignItems={"center"} sx={{ cursor: "pointer" }}>
-                  <Stack sx={{ background: "#ddecfd", padding: "16px", borderRadius: "14px", mb: "4px" }}>
-                    {item.icon}
-                  </Stack>
-                  <Stack >
-                    <Typography paragraph sx={{fontSize:"1.1rem"}} >{item.Text}</Typography>
-                  </Stack>
-                </Stack>
-              ))
-            }
-          </Box>
-        </Stack>
       </Box>
     </Box>
   )

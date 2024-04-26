@@ -1,18 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
-
-
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-   /* background-image: url(./assets/bg-img.png);  */
-   /* background-size: unset; */
-  /* background-image: url(./assets/bg-theme-img.png) !important;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-attachment: scroll;
-  min-height: 100vh; */
 }
 div input{
   margin-left: 10rem;
@@ -26,8 +17,6 @@ div input{
  margin: 0px 2rem;
 }
 .category-gap{
-  /* margin: 0.75rem; */
-  /* border: solid 1px #ddd5d5; */
   border: 2px solid rgba(0,0,0,0.3);
   background-color: #f1efee;
 border-radius: 10px;
@@ -74,22 +63,6 @@ padding: 10px;
   font-size: 18.5px;
    margin: 0px 0px 0px 7px; 
 }
-/* .dropzone {
-  border: 2px solid rgba(0,0,0,0.3);
-  background: #fff;
-  border-radius: 10px;
-  text-align: center; */
-  /* padding: 0;
- cursor: pointer;
- width: 272px;
- 
- 
-}
-.dropzone h2{
-  margin: 0px !important;
-  padding: 6px;
- 
-} */
 .download-button {
   padding: 6px !important;
    /* background: linear-gradient(105deg, #f35309, #cf7f38, #fa7406, #da7516, #f87502);  */
@@ -165,15 +138,15 @@ padding: 10px;
 .dropzone1 {
   min-height: 204px;
   border-radius: 1vw;
-  background: #dae1f1;
+  background: #006aff;
   text-align: center;
   padding: 0;
-  border: 1px solid #a6b8e3;
+  /* border: 1px solid #a6b8e3; */
   width: 639px;
   margin: 0 auto;
   /* padding: 2em; */
   cursor: pointer;
-  box-shadow: 0px 0px 0px -1px rgba(0,0,0,0.2),0px 3px 3px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+  /* box-shadow: 0px 0px 0px -1px rgba(0,0,0,0.2),0px 3px 3px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12); */
 }
 .fileupload-row {
   margin-top: 10rem;
@@ -231,12 +204,15 @@ padding: 10px;
   border-radius: 5px;
 }
 .css-1mk9mw3-MuiList-root .active{
-  background-color: #cbd9ed;
+  background-color: #0335d2;
   border-radius: 7px;
-  /* margin-right: 1rem; */
+}
+a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.css-1j8bs1q-MuiButtonBase-root-MuiListItemButton-root.active{
+  background-color: #0335d2 ;
+  border-radius: 7px;
 }
 a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListItemButton-root.MuiListItemButton-gutters.css-38w50g-MuiButtonBase-root-MuiListItemButton-root.active {
-  background-color: #cbd9ed ;
+  background-color: #0335d2 ;
   border-radius: 7px;
 }
 .css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
@@ -251,17 +227,22 @@ a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListIte
   right: unset !important;
   bottom: 100px;
 }
-.side-text-color{
-  background-color: 'eaf2fc#' !important;
+
+.css-15b8vjn-MuiPaper-root-MuiDrawer-paper{
+  background-color: #272727 !important;
+  border: none !important;
+  height: 100vh !important;
+  /* position: relative !important; */
 }
-.normal-text-color{
-  background-color: #414040 !important;
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+  border:  none !important;
+  background-color: #006aff !important;
 }
 .heading-tag{
   color: #999999;
 }
 .main-header1{
-  background-color: #9bb2e8 !important;
+  background-color: #006aff !important;
 }
 /* .css-7ow9tn-MuiPaper-root-MuiAppBar-root{
   box-shadow: none !important;
@@ -269,7 +250,7 @@ a.MuiButtonBase-root.MuiListItemButton-root.MuiListItemButton-gutters.MuiListIte
 } */
 .heal{
   box-shadow: none !important;
-  border-bottom:1.5px solid rgb(235 232 232);
+  /* border-bottom:1.5px solid rgb(235 232 232); */
   background-color: transparent !important;
 }
 .css-1fivbfg{
@@ -294,9 +275,7 @@ a img{
   font-weight: bold !important;
   font-size: 1.6rem !important;
 }
-.css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
-  border:  none !important;
-}
+
 @media screen and (max-width:1023px) {
   .shows{
     display: block ;
@@ -307,5 +286,8 @@ a img{
     width: calc(100% - 240px) !important;
     margin-left: 240px;
   }
-  
+}
+.dashboard-view{
+  display: flex;
+  gap: 42px !important;
 }
